@@ -4,165 +4,591 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dedi Afriadin | Backend Developer Portfolio</title>
-    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Calistoga&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Calistoga&family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background: #FAFAFA;
+            --foreground: #0F172A;
+            --muted: #F1F5F9;
+            --muted-foreground: #64748B;
+            --accent: #0052FF;
+            --accent-secondary: #4D7CFF;
+            --border: #E2E8F0;
+            --card: #FFFFFF;
+            --gradient: linear-gradient(135deg, #0052FF, #4D7CFF);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+            --shadow-xl: 0 20px 25px rgba(0,0,0,0.1);
+            --shadow-accent: 0 4px 14px rgba(0,82,255,0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.625;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Calistoga', serif;
+            font-weight: normal;
+        }
+
+        .container {
+            max-width: 72rem;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(250, 250, 250, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-content {
+            height: 4.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Calistoga', serif;
+            font-size: 1.5rem;
+            color: var(--foreground);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent);
+        }
+
+        /* Utility Components */
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 1.25rem;
+            background: rgba(0, 82, 255, 0.05);
+            border: 1px solid rgba(0, 82, 255, 0.2);
+            border-radius: 9999px;
+            margin-bottom: 1.5rem;
+        }
+
+        .label-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .label-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+        }
+
+        .gradient-text {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-accent);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,82,255,0.35);
+            filter: brightness(110%);
+        }
+
+        /* Page Transitions */
+        .page {
+            display: none;
+            padding-top: 8rem;
+            padding-bottom: 6rem;
+            min-height: 100vh;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeInUp 0.7s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Home */
+        .hero-grid {
+            display: grid;
+            grid-template-cols: 1.1fr 0.9fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--muted-foreground);
+            margin-bottom: 2.5rem;
+            max-width: 32rem;
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .rotating-ring {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border: 2px dashed var(--accent);
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: rotate 60s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .floating-card {
+            background: var(--card);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-xl);
+            z-index: 2;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Skills Grid */
+        .skills-container {
+            margin-top: 4rem;
+            display: grid;
+            grid-template-cols: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .skill-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .skill-icon {
+            width: 3rem;
+            height: 3rem;
+            background: var(--gradient);
+            margin: 0 auto 1rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-cols: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 1.5rem;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .project-img {
+            height: 240px;
+            background: var(--muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted-foreground);
+            position: relative;
+        }
+
+        .project-img::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.05), transparent);
+        }
+
+        .project-info {
+            padding: 2rem;
+        }
+
+        .project-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+        }
+
+        .project-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--accent);
+            background: rgba(0, 82, 255, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-cols: 1fr 1fr;
+            gap: 5rem;
+        }
+
+        .bio-text {
+            font-size: 1.125rem;
+            color: var(--muted-foreground);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-cols: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .stat-item h4 {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 0.25rem;
+        }
+
+        /* Inverted Footer/Contact */
+        .inverted-section {
+            background: var(--foreground);
+            color: white;
+            border-radius: 2rem;
+            padding: 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .inverted-section::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        .contact-title {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-grid, .about-content { grid-template-cols: 1fr; }
+            .hero-title { font-size: 3rem; }
+            .hero-visual { display: none; }
+            .nav-links { display: none; }
+            .inverted-section { padding: 2rem; }
+            .contact-title { font-size: 2.5rem; }
+        }
+    </style>
 </head>
 <body>
 
-    <div class="bg-glow"></div>
-
-    <nav class="navbar">
+    <nav>
         <div class="container nav-content">
-            <div class="logo">Dedi<span>.</span></div>
-            <ul class="nav-links">
-                <li><a href="#" class="active">Home</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="nav-cta">
-                <a href="#contact" class="btn-sm-primary">Hire Me</a>
+            <a href="#" class="logo" onclick="showPage('home')">DA.</a>
+            <div class="nav-links">
+                <a onclick="showPage('home')" id="link-home">Beranda</a>
+                <a onclick="showPage('about')" id="link-about">Tentang</a>
+                <a onclick="showPage('projects')" id="link-projects">Projek</a>
+                <a onclick="showPage('contact')" id="link-contact">Kontak</a>
             </div>
+            <a onclick="showPage('contact')" class="btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.8rem;">Hire Me</a>
         </div>
     </nav>
 
-    <main>
-        <section class="hero">
-            <div class="container hero-grid">
-                <div class="hero-text reveal">
-                    <div class="badge pulsing">
-                        <span class="pulse-dot"></span>
-                        <span class="badge-label">BACKEND ARCHITECT</span>
+    <!-- HOME PAGE -->
+    <main id="home" class="page active">
+        <div class="container">
+            <div class="hero-grid">
+                <div>
+                    <div class="section-label">
+                        <span class="label-dot"></span>
+                        <span class="label-text">Backend Developer</span>
                     </div>
-                    <h1 class="display-text">Engineering <br> <span class="gradient-text">Complex Logic</span> <br> Into Simple Solutions.</h1>
-                    <p class="body-text">Lulusan Teknik Informatika dengan 2 tahun pengalaman membangun tulang punggung sistem yang skalabel menggunakan Golang & PHP.</p>
-                    <div class="hero-btns">
-                        <a href="#projects" class="btn-primary">View Projects <i class="fas fa-chevron-right"></i></a>
-                        <div class="hero-stats">
-                            <div class="stat-item"><span class="stat-num">2+</span><span class="stat-label">Years Exp.</span></div>
-                            <div class="stat-divider"></div>
-                            <div class="stat-item"><span class="stat-num">10+</span><span class="stat-label">Projects</span></div>
-                        </div>
+                    <h1 class="hero-title">Membangun Fondasi Digital yang <span class="gradient-text">Kokoh.</span></h1>
+                    <p class="hero-description">
+                        Saya Dedi Afriadin, seorang pengembang yang fokus pada performa, skalabilitas, dan efisiensi di balik layar.
+                    </p>
+                    <div style="display: flex; gap: 1rem;">
+                        <button onclick="showPage('projects')" class="btn-primary">Lihat Projek</button>
                     </div>
                 </div>
-                <div class="hero-visual reveal">
-                    <div class="visual-canvas">
-                        <div class="rotating-ring"></div>
-                        <div class="glass-card main-card">
-                            <div class="card-tag">Main.go</div>
-                            <pre><code><span class="code-k">type</span> <span class="code-t">Server</span> <span class="code-k">struct</span> {<br>  Port <span class="code-t">string</span><br>  DB *sql.DB<br>}</code></pre>
+                <div class="hero-visual">
+                    <div class="rotating-ring"></div>
+                    <div class="floating-card">
+                        <div style="font-family: 'JetBrains Mono'; font-size: 0.8rem; color: var(--accent);">
+                            main.go
                         </div>
-                        <div class="glass-card sub-card">
-                            <div class="status-indicator"><span class="status-dot"></span> System Online</div>
-                            <div class="mini-chart">
-                                <div class="bar" style="height: 40%"></div>
-                                <div class="bar" style="height: 70%"></div>
-                                <div class="bar" style="height: 90%"></div>
-                            </div>
+                        <div style="margin-top: 1rem; color: var(--muted-foreground); font-size: 0.9rem;">
+                            func handleRequest() {<br>
+                            &nbsp;&nbsp;log.Info("Sistem Stabil")<br>
+                            }
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section id="projects" class="projects-section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <div class="badge"><span class="badge-label">CASE STUDIES</span></div>
-                    <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+            <div class="skills-container">
+                <div class="skill-card">
+                    <div class="skill-icon">PHP</div>
+                    <h3>PHP / Laravel</h3>
                 </div>
-                <div class="project-showcase">
-                    <div class="project-item wide reveal">
-                        <div class="project-content">
-                            <span class="project-num">01</span>
-                            <h3 class="project-name">E-Commerce Microservices</h3>
-                            <p>Arsitektur backend untuk marketplace skala besar dengan sistem manajemen inventaris real-time.</p>
-                            <div class="project-meta"><span>PHP</span><span>MySQL</span><span>Redis</span></div>
-                            <a href="#" class="project-link">View Detail <i class="fas fa-external-link-alt"></i></a>
-                        </div>
-                        <div class="project-visual"><i class="fas fa-shopping-bag"></i></div>
-                    </div>
+                <div class="skill-card">
+                    <div class="skill-icon">Go</div>
+                    <h3>Golang</h3>
                 </div>
-            </div>
-        </section>
-
-        <section id="skills" class="skills-section reveal">
-            <div class="container">
-                <div class="section-header">
-                    <div class="badge"><span class="badge-label">TECH STACK</span></div>
-                    <h2 class="section-title">Technical <span class="gradient-text">Powerhouse</span></h2>
+                <div class="skill-card">
+                    <div class="skill-icon">DB</div>
+                    <h3>MySQL</h3>
                 </div>
-                <div class="skills-grid">
-                    <div class="skill-card">
-                        <div class="skill-icon-box"><i class="fab fa-golang"></i></div>
-                        <h3>Golang</h3>
-                        <p>Microservices berperforma tinggi dan konkuren.</p>
-                    </div>
-                    <div class="skill-card highlight">
-                        <div class="skill-icon-box"><i class="fab fa-php"></i></div>
-                        <h3>PHP & Laravel</h3>
-                        <p>Web app kompleks dengan struktur arsitektur solid.</p>
-                    </div>
-                    <div class="skill-card">
-                        <div class="skill-icon-box"><i class="fas fa-database"></i></div>
-                        <h3>Database Design</h3>
-                        <p>Optimasi MySQL dan skema data skalabel.</p>
-                    </div>
+                <div class="skill-card">
+                    <div class="skill-icon">D</div>
+                    <h3>Docker</h3>
                 </div>
             </div>
-        </section>
-
-        <section id="contact" class="contact-section reveal">
-            <div class="container">
-                <div class="contact-wrapper">
-                    <div class="contact-info">
-                        <h2 class="display-text">Mari Mulai <br><span class="gradient-text">Kolaborasi.</span></h2>
-                        <p class="body-text">Saya selalu terbuka untuk diskusi teknis dan peluang baru.</p>
-                        <div class="method-item"><i class="fas fa-envelope"></i> dedi.afriadin@email.com</div>
-                        <div class="method-item"><i class="fas fa-map-marker-alt"></i> Makassar, Indonesia</div>
-                    </div>
-                    <form class="contact-form-container">
-                        <div class="form-group"><label>Nama</label><input type="text" placeholder="John Doe"></div>
-                        <div class="form-group"><label>Email</label><input type="email" placeholder="john@example.com"></div>
-                        <div class="form-group"><label>Pesan</label><textarea rows="4" placeholder="Halo Dedi..."></textarea></div>
-                        <button type="submit" class="btn-primary" style="width: 100%; border:none; cursor:pointer;">Kirim Pesan</button>
-                    </form>
-                </div>
-            </div>
-        </section>
+        </div>
     </main>
 
-    <footer class="footer">
-        <div class="container footer-grid">
-            <div class="footer-brand">
-                <div class="logo" style="color:white">Dedi<span>.</span></div>
-                <p class="footer-bio">Membangun logika backend yang kuat untuk solusi digital masa depan.</p>
-                <div class="footer-socials">
-                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+    <!-- ABOUT PAGE -->
+    <div id="about" class="page">
+        <div class="container">
+            <div class="section-label">
+                <span class="label-dot"></span>
+                <span class="label-text">Perjalanan Saya</span>
+            </div>
+            <div class="about-content">
+                <div>
+                    <h2 style="font-size: 3.5rem; margin-bottom: 2rem;">Lulusan Informatika dengan <span class="gradient-text">Visi Teknis.</span></h2>
+                    <p class="bio-text">
+                        Saya adalah lulusan Teknik Informatika yang memiliki hasrat besar dalam dunia pemrograman. Selama 2 tahun terakhir, saya fokus membangun infrastruktur website yang handal. 
+                        <br><br>
+                        Pendidikan saya dimulai dari SMAN 1 Madapangga hingga menempuh gelar sarjana di bidang Teknik Informatika. Saya percaya bahwa backend adalah jiwa dari sebuah aplikasi.
+                    </p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <h4>2+</h4>
+                        <p style="color: var(--muted-foreground);">Tahun Pengalaman</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>10+</h4>
+                        <p style="color: var(--muted-foreground);">Projek Selesai</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>4</h4>
+                        <p style="color: var(--muted-foreground);">Core Tech Stack</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4>100%</h4>
+                        <p style="color: var(--muted-foreground);">Dedikasi Ngoding</p>
+                    </div>
                 </div>
             </div>
-            <div class="footer-links">
-                <h4>Navigation</h4>
-                <ul><li><a href="#">Home</a></li><li><a href="#projects">Projects</a></li></ul>
+        </div>
+    </div>
+
+    <!-- PROJECTS PAGE -->
+    <div id="projects" class="page">
+        <div class="container">
+            <div class="section-label">
+                <span class="label-dot"></span>
+                <span class="label-text">Karya Terpilih</span>
+            </div>
+            <h2 style="font-size: 3.5rem; margin-bottom: 3rem;">Inovasi dalam <span class="gradient-text">Kode.</span></h2>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-img">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    </div>
+                    <div class="project-info">
+                        <div>
+                            <span class="project-tag">PHP</span>
+                            <span class="project-tag">MySQL</span>
+                        </div>
+                        <h3>E-Commerce Platform</h3>
+                        <p style="color: var(--muted-foreground); margin-bottom: 1.5rem;">Pengembangan sistem manajemen produk, keranjang belanja, dan integrasi database untuk skala UMKM.</p>
+                        <a href="#" style="color: var(--accent); font-weight: 600; text-decoration: none; font-size: 0.9rem;">Detail Projek →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-img">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M12 6v4"/><path d="M15 9l-3 3-3-3"/></svg>
+                    </div>
+                    <div class="project-info">
+                        <div>
+                            <span class="project-tag">Golang</span>
+                            <span class="project-tag">Docker</span>
+                        </div>
+                        <h3>Website Akademik Kampus</h3>
+                        <p style="color: var(--muted-foreground); margin-bottom: 1.5rem;">Sistem informasi akademik dengan manajemen data mahasiswa, nilai, dan penjadwalan kuliah yang efisien.</p>
+                        <a href="#" style="color: var(--accent); font-weight: 600; text-decoration: none; font-size: 0.9rem;">Detail Projek →</a>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="container footer-bottom">
-            <p>&copy; 2026 Dedi Afriadin.</p>
+    </div>
+
+    <!-- CONTACT PAGE -->
+    <div id="contact" class="page">
+        <div class="container">
+            <div class="inverted-section">
+                <div class="section-label" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2);">
+                    <span class="label-dot" style="background: white;"></span>
+                    <span class="label-text" style="color: white;">Hubungi Saya</span>
+                </div>
+                <h2 class="contact-title">Tertarik Bekerja <span class="gradient-text">Bersama?</span></h2>
+                <p style="color: rgba(255,255,255,0.7); font-size: 1.25rem; margin-bottom: 3rem; max-width: 30rem; margin-left: auto; margin-right: auto;">
+                    Saya selalu terbuka untuk diskusi teknis, peluang kerja, atau sekadar kopi digital.
+                </p>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+                    <a href="mailto:dedi@example.com" class="btn-primary" style="padding: 1.25rem 3rem; font-size: 1.1rem;">Kirim Email</a>
+                    <p style="margin-top: 2rem; font-family: 'JetBrains Mono'; font-size: 0.9rem; color: rgba(255,255,255,0.4);">
+                        Dedi Afriadin &copy; 2024 • Bima, NTB
+                    </p>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
 
     <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        function showPage(pageId) {
+            // Sembunyikan semua halaman
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // Tampilkan halaman yang dipilih
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            // Update active link pada navbar
+            const links = document.querySelectorAll('.nav-links a');
+            links.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            const activeLink = document.getElementById('link-' + pageId);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+
+            // Scroll ke atas setiap pindah halaman
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Handle browser history (sederhana)
+        window.onpopstate = function() {
+            const hash = window.location.hash.replace('#', '') || 'home';
+            showPage(hash);
+        };
     </script>
 </body>
 </html>
