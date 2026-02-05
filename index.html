@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dedi Afriadin | Backend Developer Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Calistoga&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+    <div class="bg-glow secondary"></div>
+
+    <nav class="navbar">
+        <div class="container nav-content">
+            <div class="logo">Dedi<span>.</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-cta">
+                <a href="contact.html" class="btn-sm-primary">Hire Me</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-text reveal">
+                <div class="badge-wrapper">
+                    <div class="badge pulsing">
+                        <span class="pulse-dot"></span>
+                        <span class="badge-label">BACKEND ARCHITECT</span>
+                    </div>
+                </div>
+                <h1 class="display-text">
+                    Engineering <br> 
+                    <span class="gradient-text">Complex Logic</span> <br>
+                    Into Simple Solutions.
+                </h1>
+                <p class="body-text">
+                    Lulusan Teknik Informatika dengan <strong>2 tahun pengalaman</strong>. Spesialisasi dalam membangun tulang punggung sistem yang skalabel menggunakan Golang & PHP.
+                </p>
+                <div class="hero-btns">
+                    <a href="#projects" class="btn-primary">
+                        View Projects <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-num">2+</span>
+                            <span class="stat-label">Years Exp.</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-num">10+</span>
+                            <span class="stat-label">Projects</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual reveal">
+                <div class="visual-canvas">
+                    <div class="shape-blob"></div>
+                    <div class="shape-grid-dots"></div>
+                    <div class="glass-card main-card">
+                        <div class="card-tag">Main.go</div>
+                        <pre><code><span class="code-k">type</span> <span class="code-t">Server</span> <span class="code-k">struct</span> {
+    Port <span class="code-t">string</span>
+    DB   *sql.DB
+}</code></pre>
+                    </div>
+                    <div class="glass-card sub-card">
+                        <div class="status-indicator">
+                            <span class="status-dot"></span> System Online
+                        </div>
+                        <div class="mini-chart">
+                            <div class="bar" style="height: 40%"></div>
+                            <div class="bar" style="height: 70%"></div>
+                            <div class="bar" style="height: 50%"></div>
+                            <div class="bar" style="height: 90%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects-section">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="badge"><span class="badge-label">CASE STUDIES</span></div>
+                <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+            </div>
+            
+            <div class="project-showcase">
+                <div class="project-item wide reveal">
+                    <div class="project-content">
+                        <span class="project-num">01</span>
+                        <h3 class="project-name">E-Commerce Microservices</h3>
+                        <p>Arsitektur backend untuk marketplace skala besar dengan sistem manajemen inventaris real-time.</p>
+                        <div class="project-meta">
+                            <span><i class="fab fa-php"></i> Laravel</span>
+                            <span><i class="fas fa-database"></i> MySQL</span>
+                            <span><i class="fas fa-bolt"></i> Redis</span>
+                        </div>
+                        <a href="#" class="project-link">View Detail <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                    <div class="project-visual">
+                        <div class="visual-mockup">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item reveal">
+                    <div class="project-content">
+                        <span class="project-num">02</span>
+                        <h3 class="project-name">Academic Management</h3>
+                        <p>Sistem informasi kampus terintegrasi dengan optimasi query untuk 10k+ data mahasiswa.</p>
+                        <div class="project-meta">
+                            <span><i class="fab fa-golang"></i> Gin Gonic</span>
+                            <span><i class="fab fa-docker"></i> Docker</span>
+                        </div>
+                        <a href="#" class="project-link">View Detail <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                    <div class="project-visual academic">
+                        <div class="visual-mockup">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+  <footer class="footer reveal">
+    <div class="footer-glow"></div>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo light">Dedi<span>.</span></div>
+                <p class="footer-bio">Membangun logika backend yang kuat untuk solusi digital masa depan.</p>
+                <div class="footer-socials">
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-tech">
+                <h4>Core Stack</h4>
+                <div class="tech-pills">
+                    <span>Golang</span>
+                    <span>PHP</span>
+                    <span>Docker</span>
+                    <span>MySQL</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Dedi Afriadin. All rights reserved.</p>
+            <p class="footer-tagline">Code with Heart, Deploy with Confidence.</p>
+        </div>
+    </div>
+</footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
